@@ -6,3 +6,4 @@ pandas
 openpyxl
 scikit-learn
 numpy
+gunicorn
