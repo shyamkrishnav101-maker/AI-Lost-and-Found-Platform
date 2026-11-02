@@ -7,19 +7,21 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 app = Flask(__name__)
 CORS(app)
 
-UPLOAD_FOLDER = 'static/uploads'
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def load_datasets():
     try:
-        ds1 = pd.read_excel('datasets/DLdataset1.xlsx')
-        ds2 = pd.read_csv('datasets/DLdataset2.csv')
-        ds3 = pd.read_excel('datasets/DLdataset3.xlsx')
+        ds1 = pd.read_excel(os.path.join(BASE_DIR, "datasets", "DLdataset1.xlsx"))
+
+        ds2 = pd.read_csv(os.path.join(BASE_DIR, "datasets", "DLdataset2.csv"))
+
+        ds3 = pd.read_excel(os.path.join(BASE_DIR, "datasets", "DLdataset3.xlsx"))
         print("Datasets loaded successfully into backend memory!")
     except Exception as e:
         print("Dataset loading note:", e)
